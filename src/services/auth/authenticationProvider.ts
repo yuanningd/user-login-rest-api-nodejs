@@ -1,8 +1,9 @@
 import  IAuthenticationToken  from "../../common/interface/IAuthenticationToken";
 import IUserDetailsService from "../../common/interface/IUserDetailsService";
 import IUserDetails from "../../common/interface/IUserDetails";
+import IAuthenticationProvider from "../../common/interface/IAuthenticationProvider";
 
-class AuthenticationProvider{
+class AuthenticationProvider implements IAuthenticationProvider{
   userDetailsService: IUserDetailsService
 
   constructor(userDetailService: IUserDetailsService) {

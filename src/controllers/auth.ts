@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { createJwtToken } from '../services/auth/jwt';
+import { generateJwtToken } from '../services/auth/jwt';
 import IAuthenticationProvider from '../common/interface/IAuthenticationProvider';
 import IAuthenticationToken from '../common/interface/IAuthenticationToken';
 import { ILoginPostDto } from '../dtos/loginPostDto';
@@ -25,7 +25,7 @@ const attemptAuthentication = async (req: Request, res: Response, next: NextFunc
 
 const successfulAuthentication = (req: Request, res: Response, next: NextFunction, validatedToken: IAuthenticationToken) => {
   const { username } = validatedToken;
-  const jwtToken = createJwtToken(username);
+  const jwtToken = generateJwtToken(username);
   res.status(200).send({ jwtToken });
 }
 
