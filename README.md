@@ -14,7 +14,7 @@
 * Run docker-compose up, then application and mongodb are both up and running.
 
 ### Application by default provide the below user:
-#### username/pwd: user/pwd
+**username/pwd: user/pwd**
 
 The api can be accessed by rest api ***Post http://localhost:8000/api/login*** with json body
 ```
@@ -23,6 +23,10 @@ The api can be accessed by rest api ***Post http://localhost:8000/api/login*** w
   "pwd": "pwd"
 }
 ```
+A JWT token will be returned if username and password are correct.
+
+A user has a maximum of 3 attempts within 5 minutes, otherwise, the user will be locked.
+
 ## Advantages of this application
 * The application authentication follows the design pattern of Spring Security, which is highly readable and maintainable.
 * Username password login can be easily switched to other login methods like 'email password login' by only rewriting UserDetailsService
