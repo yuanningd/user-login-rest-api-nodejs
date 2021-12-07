@@ -9,7 +9,7 @@ class AuthenticationProvider {
     this.userDetailsService = userDetailService;
   }
 
-  async authenticate(unValidatedToken: IAuthenticationToken) {
+  authenticate = async (unValidatedToken: IAuthenticationToken) => {
     const { username, pwd } = unValidatedToken;
 
     const userDetails = await this.retrieveUser(username);
@@ -20,21 +20,21 @@ class AuthenticationProvider {
     return validatedToken;
   }
 
-  async retrieveUser(username: string) {
+  retrieveUser = async (username: string) => {
     const userDetails = await this.userDetailsService.loadUserByUsername(username);
     if (!userDetails) {
-      throw new Error('User not fount')
+      throw new Error('User not found')
     }
     return userDetails;
   }
 
-  preAuthenticationChecks(userDetails: IUserDetails) {
+  preAuthenticationChecks = (userDetails: IUserDetails) => {
     if (userDetails.isAccountLocked) {
       throw new Error('User is locked')
     }
   }
 
-  passwordAuthenticationChecks(userDetails: IUserDetails, password: string) {
+  passwordAuthenticationChecks = (userDetails: IUserDetails, password: string) => {
     if (password !== userDetails.pwd) {
       throw new Error('Bad credentials')
     }
