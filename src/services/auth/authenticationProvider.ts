@@ -11,9 +11,11 @@ class AuthenticationProvider{
 
   async authenticate(unValidatedToken: IAuthenticationToken) {
     const { username, pwd } = unValidatedToken;
+
     const userDetails = await this.retrieveUser(username);
     this.preAuthenticationChecks(userDetails);
     this.passwordAuthenticationChecks(userDetails, pwd);
+    
     const validatedToken :IAuthenticationToken = {username, pwd, details: userDetails}
     return validatedToken;
   }

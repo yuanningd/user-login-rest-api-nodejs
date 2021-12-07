@@ -3,6 +3,8 @@ import { createJwtToken } from '../services/auth/jwt';
 import IAuthenticationProvider from '../common/interface/IAuthenticationProvider';
 import IAuthenticationToken from '../common/interface/IAuthenticationToken';
 import { ILoginPostDto } from '../dtos/loginPostDto';
+import { addWrongPasswordInputRecord } from '../services/wrongPasswordInputRecord';
+import { updateIsUserLockedStatus } from '../services/user';
 
 
 
@@ -27,6 +29,12 @@ const successfulAuthentication = (req: Request, res: Response, next: NextFunctio
   res.status(200).send({ jwtToken });
 }
 
-const unsuccessfulAuthentication = (req: Request, res: Response, failed: Error) => {
+const unsuccessfulAuthentication = async (req: Request, res: Response, failed: Error) => {
+  if (failed.message === 'Bad credentials') {
+    const currentTime = new Date();
+    const { username } = req.body;
+    await addWrongPasswordInputRecord(username, currentTime);
+    await updateIsUserLockedStatus(username, currentTime);
+  }
   res.status(401).send(failed.message);
 }

@@ -1,5 +1,5 @@
 import IUserDetailsService from '../../common/interface/IUserDetailsService';
-import User from '../../models/user'
+import User from '../../models/user';
 
 class UserDetailsService implements IUserDetailsService{
 

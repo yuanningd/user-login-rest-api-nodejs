@@ -18,6 +18,7 @@ const schema = new mongoose.Schema({
   },
   locked: {
     type: Boolean,
+    default: false,
     required: true,
   }
 });
