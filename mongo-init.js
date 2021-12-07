@@ -6,6 +6,9 @@ db.users.insert([
  {
     name: 'user',
     pwd: 'pwd',
-    locked: false
+    locked: false,
+    roles: [
+      'admin'
+    ]
   },
 ]);

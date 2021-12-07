@@ -7,4 +7,4 @@ export const updateIsUserLockedStatus = async (username: string, dateTime: Date)
     const update = { locked: true };
     await User.findOneAndUpdate(filter, update);
   }
-}
+};

@@ -1,13 +1,12 @@
-import IUserDetailsService from '../../common/interface/IUserDetailsService';
 import User from '../../models/user';
 
-class UserDetailsService implements IUserDetailsService{
+class UserDetailsService {
 
   async loadUserByUsername(username: string) {
     const user = await User.findOne({ name: username }).exec();
     if (user) {
-      const { pwd, locked } = user;
-      return {username, pwd, isAccountLocked: locked}
+      const { pwd, locked, roles } = user;
+      return {username, pwd, roles, isAccountLocked: locked}
     }
     return null;
   }

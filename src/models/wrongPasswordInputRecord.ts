@@ -14,7 +14,7 @@ const schema = new mongoose.Schema({
     type: Date,
     required: true,
   }
-})
+});
 
 const model = mongoose.model<IWrongPasswordInputRecord>('wrongPasswordInputRecord', schema);
 

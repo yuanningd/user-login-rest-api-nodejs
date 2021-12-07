@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 interface IUser {
   name: string,
   pwd: string,
-  locked: boolean
+  locked: boolean,
+  roles: string[]
 }
 
 const schema = new mongoose.Schema({
@@ -20,7 +21,8 @@ const schema = new mongoose.Schema({
     type: Boolean,
     default: false,
     required: true,
-  }
+  },
+  roles: [{ type: String }]
 });
 
 const model = mongoose.model<IUser>('User', schema);

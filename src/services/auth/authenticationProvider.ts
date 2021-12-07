@@ -1,12 +1,11 @@
 import  IAuthenticationToken  from "../../common/interface/IAuthenticationToken";
-import IUserDetailsService from "../../common/interface/IUserDetailsService";
 import IUserDetails from "../../common/interface/IUserDetails";
-import IAuthenticationProvider from "../../common/interface/IAuthenticationProvider";
+import UserDetailsService from "./userDetailService";
 
-class AuthenticationProvider implements IAuthenticationProvider{
-  userDetailsService: IUserDetailsService
+class AuthenticationProvider {
+  userDetailsService: UserDetailsService
 
-  constructor(userDetailService: IUserDetailsService) {
+  constructor(userDetailService: UserDetailsService) {
     this.userDetailsService = userDetailService;
   }
 

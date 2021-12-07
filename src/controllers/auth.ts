@@ -1,14 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
 import { generateJwtToken } from '../services/auth/jwt';
-import IAuthenticationProvider from '../common/interface/IAuthenticationProvider';
+import AuthenticationProvider from '../services/auth/authenticationProvider';
 import IAuthenticationToken from '../common/interface/IAuthenticationToken';
 import { ILoginPostDto } from '../dtos/loginPostDto';
 import { addWrongPasswordInputRecord } from '../services/wrongPasswordInputRecord';
 import { updateIsUserLockedStatus } from '../services/user';
+import IUserDetails from '../common/interface/IUserDetails';
 
-
-
-export const usernamePasswordLogin =(authProvider: IAuthenticationProvider) => async (req: Request, res: Response, next: NextFunction) => {
+export const usernamePasswordLogin =(authProvider: AuthenticationProvider) => async (req: Request, res: Response, next: NextFunction) => {
   try {
     const authenticationResult = await attemptAuthentication(req, res, next, authProvider);
     successfulAuthentication(req, res, next, authenticationResult);
@@ -17,15 +16,16 @@ export const usernamePasswordLogin =(authProvider: IAuthenticationProvider) => a
   }
 };
 
-const attemptAuthentication = async (req: Request, res: Response, next: NextFunction, authProvider: IAuthenticationProvider) => {
-  const { username, pwd }: ILoginPostDto = req.body;
+const attemptAuthentication = async (req: Request, res: Response, next: NextFunction, authProvider: AuthenticationProvider) => {
+  const { username, pwd } = req.body as ILoginPostDto;
   const unValidatedToken: IAuthenticationToken = { username, pwd };
   return await authProvider.authenticate(unValidatedToken);
 }
 
 const successfulAuthentication = (req: Request, res: Response, next: NextFunction, validatedToken: IAuthenticationToken) => {
-  const { username } = validatedToken;
-  const jwtToken = generateJwtToken(username);
+  const { details: userDetails } = validatedToken;
+  const { username, roles } = userDetails as IUserDetails;
+  const jwtToken = generateJwtToken(username, roles);
   res.status(200).send({ jwtToken });
 }
 
