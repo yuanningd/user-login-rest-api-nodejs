@@ -1,2 +1,30 @@
 # user-login-rest-api-nodejs
- 
+## Tech Stack:
+* ExpressJs
+* JWT
+* Docker
+* Docker compose
+* Mongodb
+* Joi
+* jest
+
+
+## How to run this application
+* Navigate the the root folder under the command line.
+* Run docker-compose up, then application and mongodb are both up and running.
+
+### Application by default provide the below user:
+#### username/pwd: user/pwd
+
+The api can be accessed by rest api ***Post http://localhost:8000/api/login*** with json body
+```
+{
+  "username": "user",
+  "pwd": "pwd"
+}
+```
+## Advantages of this application
+* The application authentication follows the design pattern of Spring Security, which is highly readable and maintainable.
+* Username password login can be easily switched to other login methods like 'email password login' by only rewriting UserDetailsService
+* The application can be extended to support multiple login methods, such as both username password and email password login methods, by only adding another UserDetailsService and overriding the retrieveUser method in AuthenticationProvider
+* The application can be extended to check more than if a user is locked, such as also to check if a user is expired, by only adding more information in userDetails and adding more checks in the preAuthenticationChecks method in AuthenticationProvider, and different failed responses can be processed centrally in unsuccessfulAuthentication method in auth controller
