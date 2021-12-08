@@ -20,6 +20,15 @@ afterAll(async () => {
 });
 
 describe('auth route', () => {
+  it('should return status 400 given incomplete request body',async () => {
+    const res = await request(app)
+      .post('/api/login')
+      .send({
+        username: 'user',
+      });
+    expect(res.statusCode).toBe(400);
+  });
+
   it('should return jwt given correct username and password', async () => {
     const res = await request(app)
       .post('/api/login')
