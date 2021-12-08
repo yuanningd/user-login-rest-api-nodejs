@@ -26,17 +26,20 @@ const mockRes = {
 const mockNext = jest.fn();
 
 describe('auth controller', () => {
-  it('should send status 200', async () => {
+  let authenticationProvider: AuthenticationProvider;
+
+  beforeEach(() => {
     const userDetailsService = new UserDetailsService();
-    const authenticationProvider = new AuthenticationProvider(userDetailsService);
+    authenticationProvider = new AuthenticationProvider(userDetailsService);
+  });
+
+  it('should send status 200', async () => {
     jest.spyOn(authenticationProvider, 'authenticate').mockResolvedValue({ details: mockUserDetails } as IAuthenticationToken);
     await usernamePasswordLogin(authenticationProvider)(mockReq, mockRes, mockNext);
     expect(mockRes.status).toBeCalledWith(200);
   });
 
   it('should send status 401', async () => {
-    const userDetailsService = new UserDetailsService();
-    const authenticationProvider = new AuthenticationProvider(userDetailsService);
     jest.spyOn(authenticationProvider, 'authenticate').mockRejectedValue(new Error('User is not found'));
     await usernamePasswordLogin(authenticationProvider)(mockReq, mockRes, mockNext);
     expect(mockRes.status).toBeCalledWith(401);
@@ -44,8 +47,6 @@ describe('auth controller', () => {
   });
 
   it('should add new record in wrongPasswordInputRecords collection and update user status', async () => {
-    const userDetailsService = new UserDetailsService();
-    const authenticationProvider = new AuthenticationProvider(userDetailsService);
     jest.spyOn(authenticationProvider, 'authenticate').mockRejectedValue(new Error('Bad credentials'));
     const mockAddWrongPasswordInputRecord = jest.spyOn(recordService, 'addWrongPasswordInputRecord').mockImplementation(jest.fn());
     const mockUpdateIsUserLockedStatus = jest.spyOn(userService, 'updateIsUserLockedStatus').mockImplementation(jest.fn());

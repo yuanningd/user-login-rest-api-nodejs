@@ -2,12 +2,16 @@ import AuthenticationProvider from "../../../services/auth/authenticationProvide
 import UserDetailsService from "../../../services/auth/userDetailService";
 
 describe('authenticationProvider', () => {
+  let userDetailsService: UserDetailsService;
+  let authenticationProvider: AuthenticationProvider;
   const mockUnValidatedToken = { username: 'username', pwd: 'pwd' };
 
-  it('should return validated token', async () => {
-    const userDetailsService = new UserDetailsService();
-    const authenticationProvider = new AuthenticationProvider(userDetailsService);
+  beforeEach(() => {
+    userDetailsService = new UserDetailsService();
+    authenticationProvider = new AuthenticationProvider(userDetailsService);
+  })
 
+  it('should return validated token', async () => {
     const mockUserDetails = { username: 'username', pwd: "pwd", isAccountLocked: false, roles: ['admin'] }
     jest.spyOn(userDetailsService, 'loadUserByUsername').mockResolvedValue(mockUserDetails);
 
@@ -16,18 +20,12 @@ describe('authenticationProvider', () => {
   });
 
   it('should throw user not found error', async () => {
-    const userDetailsService = new UserDetailsService();
-    const authenticationProvider = new AuthenticationProvider(userDetailsService);
-
     jest.spyOn(userDetailsService, 'loadUserByUsername').mockResolvedValue(null);
 
     expect(async () => { await authenticationProvider.authenticate(mockUnValidatedToken) }).rejects.toThrow('User not found');
   });
 
   it('should throw user is locked error', async () => {
-    const userDetailsService = new UserDetailsService();
-    const authenticationProvider = new AuthenticationProvider(userDetailsService);
-
     const mockUserDetails = { username: 'username', pwd: "pwd", isAccountLocked: true, roles: ['admin'] };
     jest.spyOn(userDetailsService, 'loadUserByUsername').mockResolvedValue(mockUserDetails);
 
@@ -35,9 +33,6 @@ describe('authenticationProvider', () => {
   });
 
   it('should throw user bad credentials error', async () => {
-    const userDetailsService = new UserDetailsService();
-    const authenticationProvider = new AuthenticationProvider(userDetailsService);
-
     const mockUserDetails = { username: 'username', pwd: "pw", isAccountLocked: false, roles: ['admin'] };
     jest.spyOn(userDetailsService, 'loadUserByUsername').mockResolvedValue(mockUserDetails);
 
