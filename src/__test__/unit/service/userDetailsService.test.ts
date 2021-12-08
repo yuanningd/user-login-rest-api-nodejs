@@ -1,7 +1,7 @@
 import UserDetailsService from "../../../services/auth/userDetailService";
 import User from '../../../models/user';
 
-const mockUser = { username: 'username' }
+const mockUser = { username: 'username' };
 
 describe('userDetailsService', () => {
   it('should return userDetails', async () => {

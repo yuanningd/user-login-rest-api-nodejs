@@ -11,6 +11,6 @@ const validateRequestBody = (paraSchema: Schema) => (req: Request, res: Response
     logger.debug(`Invalid request since ${error.message}`);
     res.status(400).send(error.message);
   }
-}
+};
 
 export default validateRequestBody;

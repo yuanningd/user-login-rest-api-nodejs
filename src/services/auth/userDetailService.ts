@@ -6,10 +6,10 @@ class UserDetailsService {
     const user = await User.findOne({ name: username });
     if (user) {
       const { pwd, locked, roles } = user;
-      return {username, pwd, roles, isAccountLocked: locked}
+      return { username, pwd, roles, isAccountLocked: locked };
     }
     return null;
-  }
+  };
 
 }
 

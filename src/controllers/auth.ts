@@ -12,7 +12,7 @@ export const usernamePasswordLogin =(authProvider: AuthenticationProvider) => as
     const authenticationResult = await attemptAuthentication(req, res, next, authProvider);
     successfulAuthentication(req, res, next, authenticationResult);
   } catch (error) {
-    unsuccessfulAuthentication(req, res, error as Error)
+    unsuccessfulAuthentication(req, res, error as Error);
   }
 };
 

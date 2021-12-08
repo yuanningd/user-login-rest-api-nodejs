@@ -2,6 +2,6 @@ export default interface IUserDetails {
   username: string,
   pwd: string,
   isAccountLocked: boolean,
-  roles: string[]
+  roles: string[],
   [propName: string]: any
 }
