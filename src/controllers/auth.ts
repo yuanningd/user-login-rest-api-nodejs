@@ -20,14 +20,14 @@ const attemptAuthentication = async (req: Request, res: Response, next: NextFunc
   const { username, pwd } = req.body as ILoginPostDto;
   const unValidatedToken: IAuthenticationToken = { username, pwd };
   return await authProvider.authenticate(unValidatedToken);
-}
+};
 
 const successfulAuthentication = (req: Request, res: Response, next: NextFunction, validatedToken: IAuthenticationToken) => {
   const { details: userDetails } = validatedToken;
   const { username, roles } = userDetails as IUserDetails;
   const jwtToken = generateJwtToken(username, roles);
   res.status(200).send({ jwtToken });
-}
+};
 
 const unsuccessfulAuthentication = async (req: Request, res: Response, failed: Error) => {
   if (failed.message === 'Bad credentials') {
@@ -37,4 +37,4 @@ const unsuccessfulAuthentication = async (req: Request, res: Response, failed: E
     await updateIsUserLockedStatus(username, currentTime);
   }
   res.status(401).send(failed.message);
-}
+};

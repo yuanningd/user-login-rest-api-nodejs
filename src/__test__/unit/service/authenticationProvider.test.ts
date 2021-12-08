@@ -44,4 +44,4 @@ describe('authenticationProvider', () => {
     expect(async () => { await authenticationProvider.authenticate(mockUnValidatedToken) }).rejects.toThrow('Bad credentials');
   });
 
-})
+});

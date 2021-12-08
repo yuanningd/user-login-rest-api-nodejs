@@ -8,8 +8,8 @@ import * as userService from '../../../services/user';
 
 const mockUserDetails = {
   username: 'user',
-  roles:['admin']
-}
+  roles: ['admin']
+};
 
 const mockReq = {
   body: {
