@@ -1,5 +1,6 @@
 # user-login-rest-api-nodejs
 ## Tech Stack:
+* TypeScript
 * ExpressJs
 * JWT
 * Docker
@@ -29,6 +30,6 @@ A user has a maximum of 3 attempts within 5 minutes, otherwise, the user will be
 
 ## Advantages of this application
 * The application authentication follows the design pattern of Spring Security, which is highly readable and maintainable.
-* Username password login can be easily switched to other login methods like 'email password login' by only rewriting UserDetailsService
-* The application can be extended to support multiple login methods, such as both username password and email password login methods, by only adding another UserDetailsService and overriding the retrieveUser method in AuthenticationProvider
+* The application can be easily switched from username password login to other login methods like 'email password login' by only rewriting UserDetailsService
+* The application can be extended to support multiple login methods, such as both username password and email password login methods, by only rewriting UserDetailsService
 * The application can be extended to check more than if a user is locked, such as also to check if a user is expired, by only adding more information in userDetails and adding more checks in the preAuthenticationChecks method in AuthenticationProvider, and different failed responses can be processed centrally in unsuccessfulAuthentication method in auth controller

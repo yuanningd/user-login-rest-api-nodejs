@@ -6,13 +6,13 @@ services:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      - mongoDB
+      - mongodb
     ports:
       - 8000:8000
     environment:
       - MONGODB_CONNECTION_STRING=mongodb://root:root_password@mongodb:27017/app?authSource=admin
 
-  mongoDB:
+  mongodb:
     image: mongo:4.4
     restart: always
     ports:

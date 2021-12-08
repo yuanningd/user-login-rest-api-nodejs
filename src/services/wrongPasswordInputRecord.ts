@@ -6,7 +6,7 @@ export const addWrongPasswordInputRecord = async (username: string, dateTime: Da
 };
 
 export const determineIfUserShouldBeLocked = async (username: string, dateTime: Date) => {
-  const records = await WrongPasswordInputRecord.find({ username }).exec();
+  const records = await WrongPasswordInputRecord.find({ username });
   const latestRecords = records.filter((e) => (dateTime.getTime() - e.dateTime.getTime() < 5 * 60 * 1000));
   return latestRecords.length >= 3;
 };
