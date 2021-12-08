@@ -33,7 +33,7 @@ A user has a maximum of 3 attempts within 5 minutes, otherwise, the user will be
 Tests are run outside of the Docker container. Integration tests use an in-memory version of MongoDB and unit tests use the jest framework. You should be able to run `npm install` followed by `npm run test-c` to run everything (assuming you have Node 14 installed on your machine).
 
 ## Advantages of this application
-* The application authentication follows the design pattern of Spring Security, which is highly readable and maintainable.
+* The application authentication follows the design pattern of Spring Security, which is highly readable and maintainable
 * The application can be easily switched from username password login to other login methods like 'email password login' by only rewriting UserDetailsService
 * The application can be extended to support multiple login methods, such as both username password and email password login methods, by only rewriting UserDetailsService
 * The application can be extended to check more than if a user is locked, such as also to check if a user is expired, by only adding more information in userDetails and adding more checks in the preAuthenticationChecks method in AuthenticationProvider, and different failed responses can be processed centrally in unsuccessfulAuthentication method in auth controller
